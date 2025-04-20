@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Registros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="admin-body">
+    <h1 class="admin-title">Administrar Registros</h1>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th class="admin-th">DNI</th>
+                <th class="admin-th">Nombre</th>
+                <th class="admin-th">Apellido</th>
+                <th class="admin-th">Dirección</th>
+                <th class="admin-th">Teléfono</th>
+                <th class="admin-th">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in registros %}
+            <tr class="admin-tr">
+                <td class="admin-td">{{ persona[0] }}</td>
+                <td class="admin-td">{{ persona[1] }}</td>
+                <td class="admin-td">{{ persona[2] }}</td>
+                <td class="admin-td">{{ persona[3] }}</td>
+                <td class="admin-td">{{ persona[4] }}</td>
+                <td class="admin-td">
+                    <form class="delete-form" action="{{ url_for('eliminar_registro', dni=persona[0]) }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
+                        <button type="submit" class="button-eliminar">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="admin-back-link" href="{{ url_for('index') }}">← Volver al inicio</a>
+</body>
+</html>
